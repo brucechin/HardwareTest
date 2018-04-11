@@ -1,0 +1,22 @@
+operation release information,Ubuntu 16.04.3 LTS
+cpu physical number,2
+gpu device number,4
+
+CPU
+CPU name,Intel(R) Xeon(R) CPU E5-2660 v4 @ 2.00GHz
+CPU core(s),2
+CPU thread per core,56
+
+GPU
+gpu,device0,device1,device2,device3
+bus_id,00000000:01:00.0,00000000:02:00.0,00000000:81:00.0,00000000:82:00.0
+driver/runtime version,9.0 / 8.0,9.0 / 8.0,9.0 / 8.0,9.0 / 8.0
+capability version,6.1,6.1,6.1,6.1
+memory size,8114 MBytes (8508014592 bytes),8114 MBytes (8508145664 bytes),8114 MBytes (8508145664 bytes),8114 MBytes (8508145664 bytes)
+cuda core(s),2560 CUDA Cores,2560 CUDA Cores,2560 CUDA Cores,2560 CUDA Cores
+main clock,1772 MHz (1.77 GHz),1772 MHz (1.77 GHz),1772 MHz (1.77 GHz),1772 MHz (1.77 GHz)
+Bus width,256-bit,256-bit,256-bit,256-bit
+Single float(GFLOPS),8003.2,8072.35,7923.51,7967.89
+Memory bandwidth(MB/s),223984.2,231392.6,231436.2,231527.0,924597.8
+CPU to GPU(MB/s),5885.8,5950.1,11977.5,11976.7,35683.9
+GPU to CPU(MB/s),6445.7,6440.0,12859.3,12868.7,38633.1

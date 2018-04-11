@@ -1,0 +1,54 @@
+#warning:修改参数时请不要改动格式，否则可能会影响读入标准值
+#error range 是可以容忍的误差范围，0.1即为标准值上下浮动10%
+#系统root密码默认为tusimple2017
+
+system root password : tusimple2017
+OS Version : Ubuntu 16.04.3 LTS
+
+####CPU config####
+
+CPU physical number :  2
+CPU(s):                56
+Thread(s) per core:    2
+Model name:            Intel(R) Xeon(R) CPU E5-2680 v4 @ 2.40GHz
+L1d cache:             32K
+L2 cache:              256K
+L3 cache:              35840K
+
+
+####Bandwidth config####
+
+ Host to Device Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)	Bandwidth(MB/s)
+   33554432			10000-13000
+
+ Device to Host Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)	Bandwidth(MB/s)
+   33554432			10000-13000
+
+#GTX 1080 memory bandwidth 官方说的320G/s 但目前测的都只有220G出头
+ Device to Device Bandwidth, 1 Device(s)
+ PINNED Memory Transfers
+   Transfer Size (Bytes)	Bandwidth(MB/s)
+   33554432			400000-600000
+
+####GPU standard config####
+
+GPU Device Number : 4
+CUDA Driver Version / Runtime Version          9.1 / 8.0
+Total amount of global memory:                 12288 MBytes
+GPU Max Clock rate:                            1455 MHz
+
+####Flop standard config####
+
+Single float(GFLOPS): 13.0-15.0
+
+#####Disk benchmark(MB/S)##### 记得修改标准范围的时候带上小数点，否则读入时会出现bug
+
+rand read : 250.0-450.0
+rand write : 250.0-450.0
+seq read : 350.0-600.0
+seq write : 350.0-600.0
+

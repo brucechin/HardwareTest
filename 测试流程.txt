@@ -1,0 +1,30 @@
+﻿
+
+########驱动安装环节#########
+1.NVIDIA和cuda的驱动将放在HardwareTest文件夹里，以下操作在HardwareTest路径内执行
+2.sudo service lightdm stop
+3.sudo init 3
+4.chmod + NVIDIA*.run
+  sudo ./NVIDIA*.run 可能会有两次小报错忽略继续安装，基本都选择ok
+5.sudo dpkg -i cuda*.deb
+6.sudo apt-get update
+7.sudo apt-get install cuda
+
+
+######系统测试######
+
+8.右键屏幕打开终端(terminal)，sudo chmod -R 777 ./HardwareTest
+9.cd HardwareTest
+10.运行./test-one-click.sh,结束后会显示SUCCESS
+11.把result_时间戳.txt文件保存
+12.运行./test-disk-io.sh，结果保存为result_disk_io_时间戳.txt
+
+
+######压力测试######
+
+12.打开五个终端分别运行./test-cpu-temperature.sh,./test-temperature-0.sh,./test-temperature-1.sh,./test-temperature-2.sh,./test-temperature-3.sh，同时把结果打印出来并写入文件中，
+GPU四个压力测试需要等待缓存写满才会打印到屏幕，刚开始不显示温度/频率等信息。
+
+13.log保存在xxx_stress_test.txt中
+
+14.control+Z可以取消各个脚本运行，但GPU压力测试的进程杀不掉，所以压力测试结束后需重启停止GPU上运行的进程

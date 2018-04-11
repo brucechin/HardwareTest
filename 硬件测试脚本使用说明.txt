@@ -1,0 +1,46 @@
+一键测试脚本使用说明：
+1.将HardwareTest文件夹复制到用户根目录下，即/home/tusimple/(important)
+2.打开终端terminal
+3.输入命令：cd /home/tusimple/HardwareTest/ 回车
+4.输入命令：sudo sh test-one-click.sh 回车
+5.双击打开HardwareTest目录下的out.csv文件
+6.自定义配置在standard_info，具体信息见该文件
+
+压力测试脚本使用说明：
+1.打开终端terminal
+2.输入命令：cd /home/tusimple/HardwareTest/ 回车
+3.输入命令：sudo sh test-temperature-1.sh 回车
+4.输入命令：sudo sh test-temperature-2.sh 回车
+5.输入命令：sudo sh test-temperature-3.sh 回车
+6.输入命令：sudo sh test-temperature-4.sh 回车
+7.测试结果保存在temperature_*.csv文件中，双击打开即可
+8.CPU压力测试脚本运行：sudo sh test-cpu-temperature.sh 回车
+
+万兆网测试说明：
+1.配IP地址
+服务器端: sudo ip address add 192.168.1.1/24 dev eth0
+客户端: sudo ip address add 192.168.1.2/24 dev eth0
+2.服务器端和客户端均需安装iperf
+sudo apt-get install iperf
+3.测试
+服务器端: iperf -s -B 192.168.1.1
+客户端: iperf -c 192.168.1.1 -B 192.168.1.2 -i 1 -t 10 -f g
+
+备用方案：
+1.基本信息测试
+  输入命令：cat /proc/cpuinfo   ----- CPU信息
+  输入命令：cd /home/tusimple/HardwareTest/cudaSamples/1_Utilities/deviceQuery/
+  输入命令：make
+  输入命令: ./deviceQuery    -----GPU信息
+2.带宽测试
+  输入命令：cd /home/tusimple/HardwareTest/cudaSamples/1_Utilities/bandwidthTest
+  输入命令：make
+  输入命令：./bandwidthTest  
+3.算力测试
+  输入命令：cd /home/tusimple/HardwareTest/cudaSamples/7_CUDALibraries/batchCUBLAS/
+  输入命令：vim batchCUBLAS.cpp
+  找到第127行，按下键盘"i"键进入编辑模式，移动光标将括号里面的数字修改为4096,同理修改128行和129行的数字
+  按下键盘"Esc"键
+  按下键盘":"键，输入"wq"，回车
+  输入命令：make
+  输入命令：./batchCUBLAS
