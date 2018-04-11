@@ -21,29 +21,29 @@ L3 cache:              35840K
  Host to Device Bandwidth, 1 Device(s)
  PINNED Memory Transfers
    Transfer Size (Bytes)	Bandwidth(MB/s)
-   33554432			10000-13000
+   33554432			5000-7000
 
  Device to Host Bandwidth, 1 Device(s)
  PINNED Memory Transfers
    Transfer Size (Bytes)	Bandwidth(MB/s)
-   33554432			10000-13000
+   33554432			5000-7000
 
 #GTX 1080 memory bandwidth 官方说的320G/s 但目前测的都只有220G出头
  Device to Device Bandwidth, 1 Device(s)
  PINNED Memory Transfers
    Transfer Size (Bytes)	Bandwidth(MB/s)
-   33554432			400000-600000
+   33554432			200000-350000
 
 ####GPU standard config####
 
 GPU Device Number : 4
 CUDA Driver Version / Runtime Version          9.1 / 8.0
-Total amount of global memory:                 12288 MBytes
-GPU Max Clock rate:                            1455 MHz
+Total amount of global memory:                 8192 MBytes
+GPU Max Clock rate:                            1744 MHz
 
 ####Flop standard config####
 
-Single float(GFLOPS): 13.0-15.0
+Single float(GFLOPS): 7.0-8.5
 
 #####Disk benchmark(MB/S)##### 记得修改标准范围的时候带上小数点，否则读入时会出现bug
 
