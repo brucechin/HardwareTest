@@ -30,7 +30,7 @@ def profile_gpulog(filename):
         # if "CUDA Capability Major" in lines[cnt]:
         #     capability_M_version.append(lines[cnt].split(":")[-1].strip())
         if "Total amount of global memory" in lines[cnt]:
-            memory_size.append(str(round(float(lines[cnt].split(":")[-1].strip().split(" ")[0]) / 1000.0,0)))
+            memory_size.append(str(int(lines[cnt].split(":")[-1].strip().split(" ")[0]) / 1000))
         if "Multiprocessors," in lines[cnt] and "CUDA Cores/MP" in lines[cnt]:
             cuda_cores.append(lines[cnt].split(":")[-1].strip()[0:4])
         if "GPU Max Clock rate" in lines[cnt]:
@@ -50,7 +50,7 @@ def check_gpulog(filename):
         # if "CUDA Capability Major" in lines[cnt]:
         #     check_capability_M_version.append(lines[cnt].split(":")[-1].strip())
         if "Total amount of global memory" in lines[cnt]:
-            check_memory_size.append(str(round(float(lines[cnt].split(":")[-1].strip().split(" ")[0]) / 1000.0,0)))
+            check_memory_size.append(str(int(lines[cnt].split(":")[-1].strip().split(" ")[0]) / 1000))
         if "Multiprocessors," in lines[cnt] and "CUDA Cores/MP" in lines[cnt]:
             check_cuda_cores.append(lines[cnt].split(":")[-1].strip()[0:4])
         if "GPU Max Clock rate" in lines[cnt]:
