@@ -22,8 +22,7 @@
 
 ######压力测试######
 
-12.打开五个终端分别运行./test-cpu-temperature.sh,./test-temperature-0.sh,./test-temperature-1.sh,./test-temperature-2.sh,./test-temperature-3.sh，同时把结果打印出来并写入文件中，
-GPU四个压力测试需要等待缓存写满才会打印到屏幕，刚开始不显示温度/频率等信息。
+12.打开两个终端分别运行./test-cpu-temperature.sh和./gpu-stress-test.sh 前者是cpu压力测试不保存测试结果，后者同时测试所有的gpu，测试结果会保存在result文件夹内gpu-stress-test.txt内
 
 13.log保存在xxx_stress_test.txt中
 
