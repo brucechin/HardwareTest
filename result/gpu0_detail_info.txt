@@ -1,0 +1,174 @@
+
+==============NVSMI LOG==============
+
+Timestamp                           : Fri Jun 29 11:30:28 2018
+Driver Version                      : 384.130
+
+Attached GPUs                       : 4
+GPU 00000000:01:00.0
+    Product Name                    : GeForce GTX 1080
+    Product Brand                   : GeForce
+    Display Mode                    : Enabled
+    Display Active                  : Enabled
+    Persistence Mode                : Disabled
+    Accounting Mode                 : Disabled
+    Accounting Mode Buffer Size     : 1920
+    Driver Model
+        Current                     : N/A
+        Pending                     : N/A
+    Serial Number                   : N/A
+    GPU UUID                        : GPU-42f01000-22e6-b426-6a21-3939528fd1a5
+    Minor Number                    : 0
+    VBIOS Version                   : 86.04.60.40.1F
+    MultiGPU Board                  : No
+    Board ID                        : 0x100
+    GPU Part Number                 : N/A
+    Inforom Version
+        Image Version               : G001.0000.01.04
+        OEM Object                  : 1.1
+        ECC Object                  : N/A
+        Power Management Object     : N/A
+    GPU Operation Mode
+        Current                     : N/A
+        Pending                     : N/A
+    GPU Virtualization Mode
+        Virtualization mode         : None
+    PCI
+        Bus                         : 0x01
+        Device                      : 0x00
+        Domain                      : 0x0000
+        Device Id                   : 0x1B8010DE
+        Bus Id                      : 00000000:01:00.0
+        Sub System Id               : 0x37301458
+        GPU Link Info
+            PCIe Generation
+                Max                 : 3
+                Current             : 1
+            Link Width
+                Max                 : 16x
+                Current             : 8x
+        Bridge Chip
+            Type                    : N/A
+            Firmware                : N/A
+        Replays since reset         : 0
+        Tx Throughput               : 0 KB/s
+        Rx Throughput               : 0 KB/s
+    Fan Speed                       : 24 %
+    Performance State               : P8
+    Clocks Throttle Reasons
+        Idle                        : Active
+        Applications Clocks Setting : Not Active
+        SW Power Cap                : Not Active
+        HW Slowdown                 : Not Active
+        Sync Boost                  : Not Active
+        SW Thermal Slowdown         : Not Active
+    FB Memory Usage
+        Total                       : 8113 MiB
+        Used                        : 257 MiB
+        Free                        : 7856 MiB
+    BAR1 Memory Usage
+        Total                       : 256 MiB
+        Used                        : 5 MiB
+        Free                        : 251 MiB
+    Compute Mode                    : Default
+    Utilization
+        Gpu                         : 1 %
+        Memory                      : 3 %
+        Encoder                     : 0 %
+        Decoder                     : 0 %
+    Encoder Stats
+        Active Sessions             : 0
+        Average FPS                 : 0
+        Average Latency             : 0
+    Ecc Mode
+        Current                     : N/A
+        Pending                     : N/A
+    ECC Errors
+        Volatile
+            Single Bit            
+                Device Memory       : N/A
+                Register File       : N/A
+                L1 Cache            : N/A
+                L2 Cache            : N/A
+                Texture Memory      : N/A
+                Texture Shared      : N/A
+                CBU                 : N/A
+                Total               : N/A
+            Double Bit            
+                Device Memory       : N/A
+                Register File       : N/A
+                L1 Cache            : N/A
+                L2 Cache            : N/A
+                Texture Memory      : N/A
+                Texture Shared      : N/A
+                CBU                 : N/A
+                Total               : N/A
+        Aggregate
+            Single Bit            
+                Device Memory       : N/A
+                Register File       : N/A
+                L1 Cache            : N/A
+                L2 Cache            : N/A
+                Texture Memory      : N/A
+                Texture Shared      : N/A
+                CBU                 : N/A
+                Total               : N/A
+            Double Bit            
+                Device Memory       : N/A
+                Register File       : N/A
+                L1 Cache            : N/A
+                L2 Cache            : N/A
+                Texture Memory      : N/A
+                Texture Shared      : N/A
+                CBU                 : N/A
+                Total               : N/A
+    Retired Pages
+        Single Bit ECC              : N/A
+        Double Bit ECC              : N/A
+        Pending                     : N/A
+    Temperature
+        GPU Current Temp            : 36 C
+        GPU Shutdown Temp           : 96 C
+        GPU Slowdown Temp           : 93 C
+        GPU Max Operating Temp      : N/A
+        Memory Current Temp         : N/A
+        Memory Max Operating Temp   : N/A
+    Power Readings
+        Power Management            : Supported
+        Power Draw                  : 9.07 W
+        Power Limit                 : 180.00 W
+        Default Power Limit         : 180.00 W
+        Enforced Power Limit        : 180.00 W
+        Min Power Limit             : 90.00 W
+        Max Power Limit             : 216.00 W
+    Clocks
+        Graphics                    : 139 MHz
+        SM                          : 139 MHz
+        Memory                      : 405 MHz
+        Video                       : 544 MHz
+    Applications Clocks
+        Graphics                    : N/A
+        Memory                      : N/A
+    Default Applications Clocks
+        Graphics                    : N/A
+        Memory                      : N/A
+    Max Clocks
+        Graphics                    : 1936 MHz
+        SM                          : 1936 MHz
+        Memory                      : 5005 MHz
+        Video                       : 1708 MHz
+    Max Customer Boost Clocks
+        Graphics                    : N/A
+    Clock Policy
+        Auto Boost                  : N/A
+        Auto Boost Default          : N/A
+    Processes
+        Process ID                  : 1663
+            Type                    : G
+            Name                    : /usr/lib/xorg/Xorg
+            Used GPU Memory         : 184 MiB
+        Process ID                  : 2609
+            Type                    : G
+            Name                    : compiz
+            Used GPU Memory         : 70 MiB
+

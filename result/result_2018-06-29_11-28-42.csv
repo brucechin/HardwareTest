@@ -1,0 +1,62 @@
+Testing Date , 2018-06-29 11:30:28
+
+System & Environment,
+
+Ubuntu Version,16.04.4,
+BIOS Version, 3.0a
+BIOS Date, 02/06/2018
+GPU Driver Version, 384.130
+CUDA Version,9.0,
+
+MotherBoard SN,NM181S016597
+Disk SN,S3YXNB0K200863W
+num of CPU,2,
+num of GPU,4,
+Memory(GB),31.3,
+Disk(GB),1802.27,
+CPU 0 name,E5-2680,
+CPU 1 name,E5-2680,
+CPU core(s),56,
+CPU hyperthreading,True,
+L1 cache(KB) Private,32
+L2 cache(KB) Private,256
+L3 cache(KB) Shared,35840
+
+Items,Test result,    ,Standard result,    ,Pass/Fail
+
+GPU Device 0, GeForce GTX 1080
+GPU UUID : GPU-42f01000-22e6-b426-6a21-3939528fd1a5,
+GPU memory(GB),8,    ,8,    ,Pass,
+Frequency(GHz),1.7,    ,1.7,    ,Pass,
+CPU to GPU(GB/s),5.7,    ,4.9~6.8,    ,Pass,
+GPU to CPU(GB/s),6.3,    ,4.9~6.8,    ,Pass,
+Memory bandwidth(GB/s),224.47,    ,195.3~341.8,    ,Pass,
+Single float(TFLOPS),8.1,    ,7.0~8.5,    ,Pass,
+
+GPU Device 1, GeForce GTX 1080
+GPU UUID : GPU-8a908f3a-e5c1-b8ef-3a43-82294d699366,
+GPU memory(GB),8,    ,8,    ,Pass,
+Frequency(GHz),1.7,    ,1.7,    ,Pass,
+CPU to GPU(GB/s),5.74,    ,4.9~6.8,    ,Pass,
+GPU to CPU(GB/s),6.3,    ,4.9~6.8,    ,Pass,
+Memory bandwidth(GB/s),225.67,    ,195.3~341.8,    ,Pass,
+Single float(TFLOPS),8.0,    ,7.0~8.5,    ,Pass,
+
+GPU Device 2, GeForce GTX 1080
+GPU UUID : GPU-99cfa592-a14b-3c78-0b8c-897eca1f8cf8,
+GPU memory(GB),8,    ,8,    ,Pass,
+Frequency(GHz),1.7,    ,1.7,    ,Pass,
+CPU to GPU(GB/s),11.45,    ,9.8~13.6,    ,Pass,
+GPU to CPU(GB/s),12.57,    ,9.8~13.6,    ,Pass,
+Memory bandwidth(GB/s),226.03,    ,195.3~341.8,    ,Pass,
+Single float(TFLOPS),8.0,    ,7.0~8.5,    ,Pass,
+
+GPU Device 3, GeForce GTX 1080
+GPU UUID : GPU-08e3f8c2-868e-1c30-8095-ce5dee45309b,
+GPU memory(GB),8,    ,8,    ,Pass,
+Frequency(GHz),1.7,    ,1.7,    ,Pass,
+CPU to GPU(GB/s),11.31,    ,9.8~13.6,    ,Pass,
+GPU to CPU(GB/s),12.57,    ,9.8~13.6,    ,Pass,
+Memory bandwidth(GB/s),226.04,    ,195.3~341.8,    ,Pass,
+Single float(TFLOPS),8.0,    ,7.0~8.5,    ,Pass,
+
