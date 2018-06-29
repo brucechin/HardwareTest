@@ -1,4 +1,5 @@
 ﻿
+目前支持cuda9.0，cuda8.0会报错，因为测试所采用的是cuda9.0里的sample
 
 ########驱动安装环节#########
 1.NVIDIA和cuda的驱动将放在HardwareTest文件夹里，以下操作在HardwareTest路径内执行
