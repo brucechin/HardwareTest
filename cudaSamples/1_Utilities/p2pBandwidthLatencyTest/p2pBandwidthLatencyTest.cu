@@ -92,7 +92,7 @@ void outputBandwidthMatrix(int numGPUs, bool p2p)
 
             cudaDeviceSynchronize();
             cudaCheckError();
-            delay<<<1,1>>>(NULL);
+            delay<<<1,1>>>((int *)NULL);
             cudaEventRecord(start[i]);
 
             for (int r=0; r<repeat; r++)
@@ -202,7 +202,7 @@ void outputBidirectionalBandwidthMatrix(int numGPUs, bool p2p)
             cudaSetDevice(i);
             cudaDeviceSynchronize();
             cudaCheckError();
-            delay<<<1,1>>>(NULL);
+            delay<<<1,1>>>((int *)NULL);
             cudaEventRecord(start[i]);
 
             for (int r=0; r<repeat; r++)
@@ -306,7 +306,7 @@ void outputLatencyMatrix(int numGPUs, bool p2p)
             }
             cudaDeviceSynchronize();
             cudaCheckError();
-            delay<<<1,1>>>(NULL);
+            delay<<<1,1>>>((int *)NULL);
             cudaEventRecord(start[i]);
 
             for (int r=0; r<repeat; r++)

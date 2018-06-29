@@ -537,12 +537,12 @@ int test_gemm_loop(struct gemmOpts &opts, float err, double max_relative_error, 
             }
         }
 
-        cudaError_t cudaStatus = cudaThreadSynchronize();
+        cudaError_t cudaStatus = cudaDeviceSynchronize();
 
         if (cudaStatus != cudaSuccess)
         {
             CLEANUP();
-            fprintf(stderr, "!!!! GPU program execution error on cudaThreadSynchronize : cudaError=%d,(%s)\n", cudaStatus,cudaGetErrorString(cudaStatus));
+            fprintf(stderr, "!!!! GPU program execution error on cudaDeviceSynchronize : cudaError=%d,(%s)\n", cudaStatus,cudaGetErrorString(cudaStatus));
             return CUBLASTEST_FAILED;
         }
 

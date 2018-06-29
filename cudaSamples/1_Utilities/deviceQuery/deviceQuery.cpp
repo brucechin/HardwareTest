@@ -169,6 +169,8 @@ main(int argc, char **argv)
         printf("  CUDA Device Driver Mode (TCC or WDDM):         %s\n", deviceProp.tccDriver ? "TCC (Tesla Compute Cluster Driver)" : "WDDM (Windows Display Driver Model)");
 #endif
         printf("  Device supports Unified Addressing (UVA):      %s\n", deviceProp.unifiedAddressing ? "Yes" : "No");
+        printf("  Supports Cooperative Kernel Launch:            %s\n", deviceProp.cooperativeLaunch ? "Yes" : "No");
+        printf("  Supports MultiDevice Co-op Kernel Launch:      %s\n", deviceProp.cooperativeMultiDeviceLaunch ? "Yes" : "No");
         printf("  Device PCI Domain ID / Bus ID / location ID:   %d / %d / %d\n", deviceProp.pciDomainID, deviceProp.pciBusID, deviceProp.pciDeviceID);
 
         const char *sComputeMode[] =
@@ -263,21 +265,6 @@ main(int argc, char **argv)
     sprintf(cTemp, "%d", deviceCount);
 #endif
     sProfileString += cTemp;
-
-    // Print Out all device Names
-    for (dev = 0; dev < deviceCount; ++dev)
-    {
-#if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
-        sprintf_s(cTemp, 13, ", Device%d = ", dev);
-#else
-        sprintf(cTemp, ", Device%d = ", dev);
-#endif
-        cudaDeviceProp deviceProp;
-        cudaGetDeviceProperties(&deviceProp, dev);
-        sProfileString += cTemp;
-        sProfileString += deviceProp.name;
-    }
-
     sProfileString += "\n";
     printf("%s", sProfileString.c_str());
 

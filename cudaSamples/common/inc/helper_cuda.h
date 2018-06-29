@@ -284,6 +284,15 @@ static const char *_cudaGetErrorEnum(cudaError_t error)
         /* Since CUDA 8.0*/        
         case cudaErrorNvlinkUncorrectable :   
             return "cudaErrorNvlinkUncorrectable";
+
+        /* Since CUDA 8.5*/        
+        case cudaErrorJitCompilerNotFound :   
+            return "cudaErrorJitCompilerNotFound";
+
+        /* Since CUDA 9.0*/
+        case cudaErrorCooperativeLaunchTooLarge :
+            return "cudaErrorCooperativeLaunchTooLarge";
+
     }
 
     return "<unknown>";
@@ -386,6 +395,9 @@ static const char *_cudaGetErrorEnum(CUresult error)
         case CUDA_ERROR_NVLINK_UNCORRECTABLE:
             return "CUDA_ERROR_NVLINK_UNCORRECTABLE";
 
+        case CUDA_ERROR_JIT_COMPILER_NOT_FOUND:
+            return "CUDA_ERROR_JIT_COMPILER_NOT_FOUND";
+
         case CUDA_ERROR_INVALID_SOURCE:
             return "CUDA_ERROR_INVALID_SOURCE";
 
@@ -463,6 +475,9 @@ static const char *_cudaGetErrorEnum(CUresult error)
 
         case CUDA_ERROR_INVALID_PC:
             return "CUDA_ERROR_INVALID_PC";
+
+        case CUDA_ERROR_COOPERATIVE_LAUNCH_TOO_LARGE:
+            return "CUDA_ERROR_COOPERATIVE_LAUNCH_TOO_LARGE";
 
         case CUDA_ERROR_NOT_PERMITTED:
             return "CUDA_ERROR_NOT_PERMITTED";
@@ -1013,6 +1028,20 @@ inline void __getLastCudaError(const char *errorMessage, const char *file, const
         exit(EXIT_FAILURE);
     }
 }
+
+// This will only print the proper error string when calling cudaGetLastError but not exit program incase error detected.
+#define printLastCudaError(msg)      __printLastCudaError (msg, __FILE__, __LINE__)
+
+inline void __printLastCudaError(const char *errorMessage, const char *file, const int line)
+{
+    cudaError_t err = cudaGetLastError();
+
+    if (cudaSuccess != err)
+    {
+        fprintf(stderr, "%s(%i) : getLastCudaError() CUDA error : %s : (%d) %s.\n",
+            file, line, errorMessage, (int)err, cudaGetErrorString(err));
+    }
+}
 #endif
 
 #ifndef MAX
@@ -1037,8 +1066,6 @@ inline int _ConvertSMVer2Cores(int major, int minor)
 
     sSMtoCores nGpuArchCoresPerSM[] =
     {
-        { 0x20, 32 }, // Fermi Generation (SM 2.0) GF100 class
-        { 0x21, 48 }, // Fermi Generation (SM 2.1) GF10x class
         { 0x30, 192}, // Kepler Generation (SM 3.0) GK10x class
         { 0x32, 192}, // Kepler Generation (SM 3.2) GK10x class
         { 0x35, 192}, // Kepler Generation (SM 3.5) GK11x class
@@ -1049,6 +1076,8 @@ inline int _ConvertSMVer2Cores(int major, int minor)
         { 0x60, 64 }, // Pascal Generation (SM 6.0) GP100 class
         { 0x61, 128}, // Pascal Generation (SM 6.1) GP10x class
         { 0x62, 128}, // Pascal Generation (SM 6.2) GP10x class
+        { 0x70, 64 }, // Volta Generation (SM 7.0) GV100 class
+
         {   -1, -1 }
     };
 

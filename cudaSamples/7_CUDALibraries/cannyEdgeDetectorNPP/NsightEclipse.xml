@@ -23,7 +23,8 @@
     <keyword>Image Processing</keyword>
   </keywords>
   <libraries>
-    <library>nppi_static</library>
+    <library>nppisu_static</library>
+    <library>nppif_static</library>
     <library>nppc_static</library>
     <library>culibos</library>
     <library>freeimage</library>
@@ -44,13 +45,13 @@
     <scope>2:Image Processing</scope>
     <scope>2:Computer Vision</scope>
   </scopes>
-  <sm-arch>sm20</sm-arch>
   <sm-arch>sm30</sm-arch>
   <sm-arch>sm35</sm-arch>
   <sm-arch>sm37</sm-arch>
   <sm-arch>sm50</sm-arch>
   <sm-arch>sm52</sm-arch>
   <sm-arch>sm60</sm-arch>
+  <sm-arch>sm70</sm-arch>
   <supported_envs>
     <env>
       <arch>x86_64</arch>

@@ -29,11 +29,16 @@
  * Matrix multiplication (CUDA Kernel) on the device: C = A * B
  * wA is A's width and wB is B's width
  */
+ 
+ #include <cooperative_groups.h>
+
 
 template <int BLOCK_SIZE> __device__ void
 
 matrixMulCUDA(float *C, float *A, float *B, int wA, int wB)
 {
+    // Handle to thread block group
+    cooperative_groups::thread_block cta = cooperative_groups::this_thread_block();
     // Block index
     int bx = blockIdx.x;
     int by = blockIdx.y;
@@ -80,7 +85,8 @@ matrixMulCUDA(float *C, float *A, float *B, int wA, int wB)
         Bs[ty][tx] = B[b + wB * ty + tx];
 
         // Synchronize to make sure the matrices are loaded
-        __syncthreads();
+       cooperative_groups::sync(cta);
+
 
         // Multiply the two matrices together;
         // each thread computes one element
@@ -94,7 +100,8 @@ matrixMulCUDA(float *C, float *A, float *B, int wA, int wB)
         // Synchronize to make sure that the preceding
         // computation is done before loading two new
         // sub-matrices of A and B in the next iteration
-        __syncthreads();
+       cooperative_groups::sync(cta);
+
     }
 
     // Write the block sub-matrix to device memory;

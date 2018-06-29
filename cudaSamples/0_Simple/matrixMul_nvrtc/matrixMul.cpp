@@ -38,7 +38,6 @@
 // Helper functions and utilities to work with CUDA
 #include <helper_functions.h>
 
-
 void constantInit(float *data, int size, float val)
 {
     for (int i = 0; i < size; ++i)
@@ -73,11 +72,9 @@ int matrixMultiply(int argc, char **argv, int block_size, dim3 &dimsA, dim3 &dim
     size_t ptxSize;
 
     kernel_file = sdkFindFilePath("matrixMul_kernel.cu", argv[0]);
-    compileFileToPTX(kernel_file, 0, NULL, &ptx, &ptxSize);
+    compileFileToPTX(kernel_file, argc, argv, &ptx, &ptxSize, 1);
 
     CUmodule module = loadPTX(ptx, argc, argv);
-
-
 
     // Allocate host matrix C
     dim3 dimsC(dimsB.x, dimsA.y, 1);
@@ -202,7 +199,6 @@ int main(int argc, char **argv)
         exit(EXIT_SUCCESS);
     }
 
-    // Use a larger block size for Fermi and above
     int block_size = 32;
 
     //original:

@@ -1,0 +1,58 @@
+batchCUBLAS Starting...
+
+gpuDeviceInit() CUDA Device [3]: "GeForce GTX 1080
+
+ ==== Running single kernels ==== 
+
+Testing sgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0xbf800000, -1) beta= (0x40000000, 2)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 0.01503801 sec  GFLOPS=9139.44
+@@@@ sgemm test OK
+Testing dgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0x0000000000000000, 0) beta= (0x0000000000000000, 0)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 0.47943711 sec  GFLOPS=286.667
+@@@@ dgemm test OK
+
+ ==== Running N=10 without streams ==== 
+
+Testing sgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0xbf800000, -1) beta= (0x00000000, 0)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 0.16051698 sec  GFLOPS=8562.27
+@@@@ sgemm test OK
+Testing dgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0xbff0000000000000, -1) beta= (0x0000000000000000, 0)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 4.79387593 sec  GFLOPS=286.697
+@@@@ dgemm test OK
+
+ ==== Running N=10 with streams ==== 
+
+Testing sgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0x40000000, 2) beta= (0x40000000, 2)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 0.16421103 sec  GFLOPS=8369.65
+@@@@ sgemm test OK
+Testing dgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0xbff0000000000000, -1) beta= (0x0000000000000000, 0)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 4.73183203 sec  GFLOPS=290.456
+@@@@ dgemm test OK
+
+ ==== Running N=10 batched ==== 
+
+Testing sgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0x3f800000, 1) beta= (0xbf800000, -1)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 0.17086196 sec  GFLOPS=8043.86
+@@@@ sgemm test OK
+Testing dgemm
+#### args: ta=0 tb=0 m=4096 n=4096 k=4096  alpha = (0xbff0000000000000, -1) beta= (0x4000000000000000, 2)
+#### args: lda=4096 ldb=4096 ldc=4096
+^^^^ elapsed = 4.75338006 sec  GFLOPS=289.139
+@@@@ dgemm test OK
+
+Test Summary
+0 error(s)

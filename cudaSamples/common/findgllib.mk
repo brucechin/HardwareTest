@@ -38,11 +38,9 @@
 ifeq ("$(TARGET_OS)","linux")
    # first search lsb_release
    DISTRO  = $(shell lsb_release -i -s 2>/dev/null | tr "[:upper:]" "[:lower:]")
-   DISTVER = $(shell lsb_release -r -s 2>/dev/null)
    ifeq ("$(DISTRO)","")
      # second search and parse /etc/issue
      DISTRO = $(shell more /etc/issue | awk '{print $$1}' | sed '1!d' | sed -e "/^$$/d" 2>/dev/null | tr "[:upper:]" "[:lower:]")
-     DISTVER= $(shell more /etc/issue | awk '{print $$2}' | sed '1!d' 2>/dev/null)
      # ensure data from /etc/issue is valid
      ifeq (,$(filter $(DISTRO),ubuntu fedora red rhel centos suse))
        DISTRO = 
@@ -50,7 +48,6 @@ ifeq ("$(TARGET_OS)","linux")
      ifeq ("$(DISTRO)","")
        # third, we can search in /etc/os-release or /etc/{distro}-release
        DISTRO = $(shell awk '/ID/' /etc/*-release | sed 's/ID=//' | grep -v "VERSION" | grep -v "ID" | grep -v "DISTRIB")
-       DISTVER= $(shell awk '/DISTRIB_RELEASE/' /etc/*-release | sed 's/DISTRIB_RELEASE=//' | grep -v "DISTRIB_RELEASE")
      endif
    endif
 endif
@@ -58,28 +55,29 @@ endif
 ifeq ("$(TARGET_OS)","linux")
     # $(info) >> findgllib.mk -> LINUX path <<<)
     # Each set of Linux Distros have different paths for where to find their OpenGL libraries reside
-    UBUNTU_PKG_NAME = "nvidia-367"
-        UBUNTU = $(shell echo $(DISTRO) | grep -i ubuntu      >/dev/null 2>&1; echo $$?)
-        FEDORA = $(shell echo $(DISTRO) | grep -i fedora      >/dev/null 2>&1; echo $$?)
-        RHEL   = $(shell echo $(DISTRO) | grep -i 'red\|rhel' >/dev/null 2>&1; echo $$?)
-        CENTOS = $(shell echo $(DISTRO) | grep -i centos      >/dev/null 2>&1; echo $$?)
-        SUSE   = $(shell echo $(DISTRO) | grep -i suse        >/dev/null 2>&1; echo $$?)
+    UBUNTU = $(shell echo $(DISTRO) | grep -i ubuntu      >/dev/null 2>&1; echo $$?)
+    FEDORA = $(shell echo $(DISTRO) | grep -i fedora      >/dev/null 2>&1; echo $$?)
+    RHEL   = $(shell echo $(DISTRO) | grep -i 'red\|rhel' >/dev/null 2>&1; echo $$?)
+    CENTOS = $(shell echo $(DISTRO) | grep -i centos      >/dev/null 2>&1; echo $$?)
+    SUSE   = $(shell echo $(DISTRO) | grep -i suse        >/dev/null 2>&1; echo $$?)
     ifeq ("$(UBUNTU)","0")
       ifeq ($(HOST_ARCH)-$(TARGET_ARCH),x86_64-armv7l)
         GLPATH := /usr/arm-linux-gnueabihf/lib
         GLLINK := -L/usr/arm-linux-gnueabihf/lib
         ifneq ($(TARGET_FS),) 
-          GLPATH += $(TARGET_FS)/usr/lib/$(UBUNTU_PKG_NAME)
           GLPATH += $(TARGET_FS)/usr/lib/arm-linux-gnueabihf
-          GLLINK += -L$(TARGET_FS)/usr/lib/$(UBUNTU_PKG_NAME)
           GLLINK += -L$(TARGET_FS)/usr/lib/arm-linux-gnueabihf
         endif 
       else ifeq ($(HOST_ARCH)-$(TARGET_ARCH),x86_64-ppc64le)
         GLPATH := /usr/powerpc64le-linux-gnu/lib
         GLLINK := -L/usr/powerpc64le-linux-gnu/lib
       else
-        GLPATH    ?= /usr/lib/$(UBUNTU_PKG_NAME)
-        GLLINK    ?= -L/usr/lib/$(UBUNTU_PKG_NAME)
+        UBUNTU_PKG_NAME = $(shell which dpkg >/dev/null 2>&1 && dpkg -l 'nvidia-*' | grep '^ii' | awk '{print $$2}' | head -1)
+        ifneq ("$(UBUNTU_PKG_NAME)","")
+          GLPATH    ?= /usr/lib/$(UBUNTU_PKG_NAME)
+          GLLINK    ?= -L/usr/lib/$(UBUNTU_PKG_NAME)
+        endif
+
         DFLT_PATH ?= /usr/lib
       endif
     endif

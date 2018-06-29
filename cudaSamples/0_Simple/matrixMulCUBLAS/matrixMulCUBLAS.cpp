@@ -188,8 +188,7 @@ void initializeCUDA(int argc, char **argv, int &devID, int &iSizeMultiple, sMatr
 
     printf("GPU Device %d: \"%s\" with compute capability %d.%d\n\n", devID, deviceProp.name, deviceProp.major, deviceProp.minor);
 
-    // use a larger block size for Fermi and above
-    int block_size = (deviceProp.major < 2) ? 16 : 32;
+    int block_size = 32;
 
     matrix_size.uiWA = 3 * block_size * iSizeMultiple;
     matrix_size.uiHA = 4 * block_size * iSizeMultiple;
@@ -221,8 +220,7 @@ int matrixMultiply(int argc, char **argv, int devID, sMatrixSize &matrix_size)
 
     checkCudaErrors(cudaGetDeviceProperties(&deviceProp, devID));
 
-    // use a larger block size for Fermi and above
-    int block_size = (deviceProp.major < 2) ? 16 : 32;
+    int block_size = 32;
 
     // set seed for rand()
     srand(2006);

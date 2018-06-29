@@ -90,13 +90,13 @@ static void gpu_pbicgstab(cublasHandle_t cublasHandle, cusparseHandle_t cusparse
 
     //compute initial residual r0=b-Ax0 (using initial guess in x)
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-    checkCudaErrors(cudaThreadSynchronize());
+    checkCudaErrors(cudaDeviceSynchronize());
     ttm = second();
 #endif
 
     checkCudaErrors(cusparseDcsrmv(cusparseHandle, CUSPARSE_OPERATION_NON_TRANSPOSE, n, n, nnz, &one, descra, a, ia, ja, x, &zero, r));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-    cudaThreadSynchronize();
+    cudaDeviceSynchronize();
     ttm2= second();
     ttt_mv += (ttm2-ttm);
     //printf("matvec %f (s)\n",ttm2-ttm);
@@ -122,14 +122,14 @@ static void gpu_pbicgstab(cublasHandle_t cublasHandle, cusparseHandle_t cusparse
         }
         //preconditioning step (lower and upper triangular solve)
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttl  = second();
 #endif
         checkCudaErrors(cusparseSetMatFillMode(descrm,CUSPARSE_FILL_MODE_LOWER));
         checkCudaErrors(cusparseSetMatDiagType(descrm,CUSPARSE_DIAG_TYPE_UNIT));
         checkCudaErrors(cusparseDcsrsv_solve(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,n,&one,descrm,vm,im,jm,info_l,p,t));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttl2 = second();
         ttu  = second();
 #endif
@@ -137,7 +137,7 @@ static void gpu_pbicgstab(cublasHandle_t cublasHandle, cusparseHandle_t cusparse
         checkCudaErrors(cusparseSetMatDiagType(descrm,CUSPARSE_DIAG_TYPE_NON_UNIT));
         checkCudaErrors(cusparseDcsrsv_solve(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,n,&one,descrm,vm,im,jm,info_u,t,pw));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttu2 = second();
         ttt_sv += (ttl2-ttl)+(ttu2-ttu);
         //printf("solve lower %f (s), upper %f (s) \n",ttl2-ttl,ttu2-ttu);
@@ -145,13 +145,13 @@ static void gpu_pbicgstab(cublasHandle_t cublasHandle, cusparseHandle_t cusparse
 
         //matrix-vector multiplication
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttm = second();
 #endif
 
         checkCudaErrors(cusparseDcsrmv(cusparseHandle, CUSPARSE_OPERATION_NON_TRANSPOSE, n, n, nnz, &one, descra, a, ia, ja, pw, &zero, v));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttm2= second();
         ttt_mv += (ttm2-ttm);
         //printf("matvec %f (s)\n",ttm2-ttm);
@@ -171,14 +171,14 @@ static void gpu_pbicgstab(cublasHandle_t cublasHandle, cusparseHandle_t cusparse
 
         //preconditioning step (lower and upper triangular solve)
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttl  = second();
 #endif
         checkCudaErrors(cusparseSetMatFillMode(descrm,CUSPARSE_FILL_MODE_LOWER));
         checkCudaErrors(cusparseSetMatDiagType(descrm,CUSPARSE_DIAG_TYPE_UNIT));
         checkCudaErrors(cusparseDcsrsv_solve(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,n, &one,descrm,vm,im,jm,info_l,r,t));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttl2 = second();
         ttu  = second();
 #endif
@@ -186,20 +186,20 @@ static void gpu_pbicgstab(cublasHandle_t cublasHandle, cusparseHandle_t cusparse
         checkCudaErrors(cusparseSetMatDiagType(descrm,CUSPARSE_DIAG_TYPE_NON_UNIT));
         checkCudaErrors(cusparseDcsrsv_solve(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,n, &one,descrm,vm,im,jm,info_u,t,s));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttu2 = second();
         ttt_sv += (ttl2-ttl)+(ttu2-ttu);
         //printf("solve lower %f (s), upper %f (s) \n",ttl2-ttl,ttu2-ttu);
 #endif
         //matrix-vector multiplication
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttm = second();
 #endif
 
         checkCudaErrors(cusparseDcsrmv(cusparseHandle, CUSPARSE_OPERATION_NON_TRANSPOSE, n, n, nnz, &one, descra, a, ia, ja, s, &zero, t));
 #ifdef TIME_INDIVIDUAL_LIBRARY_CALLS
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
         ttm2= second();
         ttt_mv += (ttm2-ttm);
         //printf("matvec %f (s)\n",ttm2-ttm);
@@ -475,14 +475,14 @@ int test_bicgstab(char * matrix_filename, char * coloring_filename,
     checkCudaErrors(cusparseSetMatFillMode(descrm,CUSPARSE_FILL_MODE_LOWER));
     checkCudaErrors(cusparseSetMatDiagType(descrm,CUSPARSE_DIAG_TYPE_UNIT));
     checkCudaErrors(cusparseDcsrsv_analysis(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,matrixM,nnz,descrm,devPtrAval,devPtrArowsIndex,devPtrAcolsIndex,info_l));
-    checkCudaErrors(cudaThreadSynchronize());
+    checkCudaErrors(cudaDeviceSynchronize());
     double ttl2 = second();
 
     double ttu = second();
     checkCudaErrors(cusparseSetMatFillMode(descrm,CUSPARSE_FILL_MODE_UPPER));
     checkCudaErrors(cusparseSetMatDiagType(descrm,CUSPARSE_DIAG_TYPE_NON_UNIT));
     checkCudaErrors(cusparseDcsrsv_analysis(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,matrixM,nnz,descrm,devPtrAval,devPtrArowsIndex,devPtrAcolsIndex,info_u));
-    checkCudaErrors(cudaThreadSynchronize());
+    checkCudaErrors(cudaDeviceSynchronize());
     double ttu2= second();
     ttt_sv += (ttl2-ttl)+(ttu2-ttu);
     printf("analysis lower %f (s), upper %f (s) \n",ttl2-ttl,ttu2-ttu);
@@ -494,7 +494,7 @@ int test_bicgstab(char * matrix_filename, char * coloring_filename,
     devPtrMrowsIndex = devPtrArowsIndex; 
     devPtrMcolsIndex = devPtrAcolsIndex;
     checkCudaErrors(cusparseDcsrilu0(cusparseHandle,CUSPARSE_OPERATION_NON_TRANSPOSE,matrixM,descra,devPtrMval,devPtrArowsIndex,devPtrAcolsIndex,info_l));
-    checkCudaErrors(cudaThreadSynchronize());
+    checkCudaErrors(cudaDeviceSynchronize());
     stop_ilu = second();
     fprintf (stdout, "time(s) = %10.8f \n",stop_ilu-start_ilu);
 
@@ -509,7 +509,7 @@ int test_bicgstab(char * matrix_filename, char * coloring_filename,
                               info_l, info_u,
                               devPtrF,devPtrR,devPtrRW,devPtrP,devPtrPW,devPtrS,devPtrT,devPtrV,devPtrX, maxit, tol, ttt_sv);
 
-        checkCudaErrors(cudaThreadSynchronize());
+        checkCudaErrors(cudaDeviceSynchronize());
     }
     stop = second()/num_iterations;
 

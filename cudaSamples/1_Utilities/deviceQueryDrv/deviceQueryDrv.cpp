@@ -230,6 +230,14 @@ main(int argc, char **argv)
         getCudaAttribute<int>(&unifiedAddressing, CU_DEVICE_ATTRIBUTE_UNIFIED_ADDRESSING, dev);
         printf("  Device supports Unified Addressing (UVA):      %s\n", unifiedAddressing ? "Yes" : "No");
 
+        int cooperativeLaunch;
+        getCudaAttribute<int>(&cooperativeLaunch, CU_DEVICE_ATTRIBUTE_COOPERATIVE_LAUNCH, dev);
+        printf("  Supports Cooperative Kernel Launch:            %s\n", cooperativeLaunch ? "Yes" : "No");
+
+        int cooperativeMultiDevLaunch;
+        getCudaAttribute<int>(&cooperativeMultiDevLaunch, CU_DEVICE_ATTRIBUTE_COOPERATIVE_MULTI_DEVICE_LAUNCH, dev);
+        printf("  Supports MultiDevice Co-op Kernel Launch:      %s\n", cooperativeMultiDevLaunch ? "Yes" : "No");
+
         int pciDomainID, pciBusID, pciDeviceID;
         getCudaAttribute<int>(&pciDomainID, CU_DEVICE_ATTRIBUTE_PCI_DOMAIN_ID, dev);
         getCudaAttribute<int>(&pciBusID, CU_DEVICE_ATTRIBUTE_PCI_BUS_ID, dev);

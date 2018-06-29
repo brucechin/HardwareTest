@@ -407,8 +407,7 @@ int main(int argc, char **argv)
         printf("GPU Device %d: \"%s\" with compute capability %d.%d\n\n", devID, deviceProp.name, deviceProp.major, deviceProp.minor);
     }
 
-    // Use a larger block size for Fermi and above
-    int block_size = (deviceProp.major < 2) ? 16 : 32;
+    int block_size = 32;
 
     dim3 dimsA(5*2*block_size, 5*2*block_size, 1);
     dim3 dimsB(5*4*block_size, 5*2*block_size, 1);

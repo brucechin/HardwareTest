@@ -34,7 +34,7 @@
 ################################################################################
 
 # Location of the CUDA Toolkit
-CUDA_PATH ?= "/usr/local/cuda-8.0"
+CUDA_PATH ?= /usr/local/cuda-9.0
 
 ##############################
 # start deprecated interface #
@@ -182,6 +182,29 @@ ifneq ($(TARGET_ARCH),$(HOST_ARCH))
     endif
 endif
 
+ifeq ($(TARGET_OS),qnx)
+    CCFLAGS += -DWIN_INTERFACE_CUSTOM
+    LDFLAGS += -lsocket
+endif
+
+# Install directory of different arch
+CUDA_INSTALL_TARGET_DIR :=
+ifeq ($(TARGET_ARCH)-$(TARGET_OS),armv7l-linux)
+    CUDA_INSTALL_TARGET_DIR = targets/armv7-linux-gnueabihf/
+else ifeq ($(TARGET_ARCH)-$(TARGET_OS),aarch64-linux)
+    CUDA_INSTALL_TARGET_DIR = targets/aarch64-linux/
+else ifeq ($(TARGET_ARCH)-$(TARGET_OS),armv7l-android)
+    CUDA_INSTALL_TARGET_DIR = targets/armv7-linux-androideabi/
+else ifeq ($(TARGET_ARCH)-$(TARGET_OS),aarch64-android)
+    CUDA_INSTALL_TARGET_DIR = targets/aarch64-linux-androideabi/
+else ifeq ($(TARGET_ARCH)-$(TARGET_OS),armv7l-qnx)
+    CUDA_INSTALL_TARGET_DIR = targets/ARMv7-linux-QNX/
+else ifeq ($(TARGET_ARCH)-$(TARGET_OS),aarch64-qnx)
+    CUDA_INSTALL_TARGET_DIR = targets/aarch64-qnx/
+else ifeq ($(TARGET_ARCH),ppc64le)
+    CUDA_INSTALL_TARGET_DIR = targets/ppc64le-linux/
+endif
+
 # Debug build flags
 ifeq ($(dbg),1)
       NVCCFLAGS += -g -G
@@ -217,8 +240,8 @@ ifeq ($(GENCODE_FLAGS),)
 $(foreach sm,$(SMS),$(eval GENCODE_FLAGS += -gencode arch=compute_$(sm),code=sm_$(sm)))
 
 ifeq ($(SMS),)
-# Generate PTX code from SM 20
-GENCODE_FLAGS += -gencode arch=compute_20,code=compute_20
+# Generate PTX code from SM 30
+GENCODE_FLAGS += -gencode arch=compute_30,code=compute_30
 endif
 
 # Generate PTX code from the highest SM architecture in $(SMS) to guarantee forward-compatibility
@@ -230,7 +253,7 @@ endif
 
 INCLUDES += -I../common/UtilNPP -I../common/FreeImage/include
 
-LIBRARIES += -L../common/FreeImage/lib/ -L../common/FreeImage/lib/$(TARGET_OS) -L../common/FreeImage/lib/$(TARGET_OS)/$(TARGET_ARCH) -lnppi_static -lnppc_static -lculibos -lfreeimage
+LIBRARIES += -L../common/FreeImage/lib/ -L../common/FreeImage/lib/$(TARGET_OS) -L../common/FreeImage/lib/$(TARGET_OS)/$(TARGET_ARCH) -lnppisu_static -lnppif_static -lnppc_static -lculibos -lfreeimage
 
 # Attempt to compile a minimal application linked against FreeImage. If a.out exists, FreeImage is properly set up.
 $(shell echo "#include \"FreeImage.h\"" > test.c; echo "int main() { return 0; }" >> test.c ; $(NVCC) $(ALL_CCFLAGS) $(INCLUDES) $(LIBRARIES) -l freeimage test.c)

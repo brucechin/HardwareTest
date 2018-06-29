@@ -19,8 +19,8 @@
     }                                                                        \
   } while(0)
 
-void compileFileToPTX(char *filename, int argc, const char **argv,
-                      char **ptxResult, size_t *ptxResultSize)
+void compileFileToPTX(char *filename, int argc, char **argv,
+                      char **ptxResult, size_t *ptxResultSize, int requiresCGheaders)
 {
     std::ifstream inputFile(filename, std::ios::in | std::ios::binary |
                                 std::ios::ate);
@@ -40,11 +40,39 @@ void compileFileToPTX(char *filename, int argc, const char **argv,
     inputFile.close();
     memBlock[inputSize] = '\x0';
 
+    int numCompileOptions = 0;
+
+    char *compileParams[1];
+
+    if (requiresCGheaders)
+    {
+        std::string compileOptions;
+        char *HeaderNames = "cooperative_groups.h";
+
+        compileOptions = "--include-path=";
+
+        std::string path = sdkFindFilePath(HeaderNames, argv[0]);
+        if (!path.empty())
+        {
+            std::size_t found = path.find(HeaderNames);
+            path.erase(found);
+        }
+        else
+        {
+            printf("\nCooperativeGroups headers not found, please install it in %s sample directory..\n Exiting..\n", argv[0]);
+        }
+        compileOptions += path.c_str();
+        compileParams[0] = (char *) malloc(sizeof(char)* (compileOptions.length() + 1));
+        strcpy(compileParams[0], compileOptions.c_str());
+        numCompileOptions++;
+    }
+
     // compile
     nvrtcProgram prog;
     NVRTC_SAFE_CALL("nvrtcCreateProgram", nvrtcCreateProgram(&prog, memBlock,
                                                      filename, 0, NULL, NULL));
-    nvrtcResult res = nvrtcCompileProgram(prog, argc, argv);
+
+    nvrtcResult res = nvrtcCompileProgram(prog, numCompileOptions, compileParams);
 
     // dump log
     size_t logSize;
@@ -53,11 +81,14 @@ void compileFileToPTX(char *filename, int argc, const char **argv,
     NVRTC_SAFE_CALL("nvrtcGetProgramLog", nvrtcGetProgramLog(prog, log));
     log[logSize] = '\x0';
 
-    /*
-    std::cerr << "\n compilation log ---\n";
-    std::cerr << log;
-    std::cerr << "\n end log ---\n";
-    */
+    
+    if (strlen(log) >= 2)
+    { 
+        std::cerr << "\n compilation log ---\n";
+        std::cerr << log;
+        std::cerr << "\n end log ---\n";
+    }
+    
     free(log);
 
     NVRTC_SAFE_CALL("nvrtcCompileProgram", res);
@@ -69,6 +100,9 @@ void compileFileToPTX(char *filename, int argc, const char **argv,
     NVRTC_SAFE_CALL("nvrtcDestroyProgram", nvrtcDestroyProgram(&prog));
     *ptxResult = ptx;
     *ptxResultSize = ptxSize;
+
+    if (requiresCGheaders)
+        free(compileParams[0]);
 }
 
 CUmodule loadPTX(char *ptx, int argc, char **argv)
@@ -91,6 +125,7 @@ CUmodule loadPTX(char *ptx, int argc, char **argv)
     checkCudaErrors(cuCtxCreate(&context, 0, cuDevice));
 
     checkCudaErrors(cuModuleLoadDataEx(&module, ptx, 0, 0, 0));
+    free(ptx);
 
     return module;
 }

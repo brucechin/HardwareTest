@@ -101,8 +101,6 @@ inline int _ConvertSMVer2CoresDRV(int major, int minor)
 
     sSMtoCores nGpuArchCoresPerSM[] =
     {
-        { 0x20, 32 }, // Fermi Generation (SM 2.0) GF100 class
-        { 0x21, 48 }, // Fermi Generation (SM 2.1) GF10x class
         { 0x30, 192}, // Kepler Generation (SM 3.0) GK10x class
         { 0x32, 192}, // Kepler Generation (SM 3.2) GK10x class
         { 0x35, 192}, // Kepler Generation (SM 3.5) GK11x class
@@ -113,6 +111,7 @@ inline int _ConvertSMVer2CoresDRV(int major, int minor)
         { 0x60, 64 }, // Pascal Generation (SM 6.0) GP100 class
         { 0x61, 128}, // Pascal Generation (SM 6.1) GP10x class
         { 0x62, 128}, // Pascal Generation (SM 6.2) GP10x class
+        { 0x70, 64 }, // Volta Generation (SM 7.0) GV100 class
         {   -1, -1 }
     };
 
