@@ -14,7 +14,7 @@ for cnt in range(len(lines)):
     if "status group" in lines[cnt]:
         disk_io.append(int(lines[cnt + 1].split(",")[1].split("=")[-1][:-4]) / 1024)
 fout.write("Random read(MB/s),{}\n".format(disk_io[0]))
-fout.write("Random write(MB/s),{}\n".format(disk_io[1]))
-fout.write("Seq read(MB/s),{}\n".format(disk_io[2]))
+fout.write("Random write(MB/s),{}\n".format(disk_io[2]))
+fout.write("Seq read(MB/s),{}\n".format(disk_io[1]))
 fout.write("Seq write(MB/s),{}\n".format(disk_io[3]))
 fout.write("\n")
